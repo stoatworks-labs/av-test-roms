@@ -27,7 +27,7 @@ started, and this table is the honest state of it rather than a roadmap.
 | **Mega Drive** | `m68k-elf-gcc` | 3 | PicoDrive, Genesis Plus GX ✅ |
 | Master System / GG | `sdcc` | — | not started |
 | Atari 2600 | `dasm` | — | not started |
-| Commodore 64 | `cc65` | — | not started |
+| **Commodore 64** | `cc65` | 3 | built only — needs a C64 ROM set ⚠️ |
 
 "Verified" means the ROM was run in that core and the resulting frames were
 looked at — not merely that it assembled. See [docs/VERIFICATION.md](docs/VERIFICATION.md).
