@@ -1,13 +1,14 @@
 # av-test-roms
 
 > **AI-assisted project.** This codebase was created with [Claude](https://claude.com/claude-code)
-> (Anthropic), directed and reviewed by a human author. Four of the seven
+> (Anthropic), directed and reviewed by a human author. Five of the seven
 > targets are verified in the sense that the ROMs were run in an emulator core
 > and the frames were looked at — GBA in mGBA, NES in fceumm/Nestopia/Mesen/
-> QuickNES, Game Boy in gambatte, and Mega Drive in PicoDrive and Genesis Plus
-> GX. **The C64 ROMs are built but have never been run**, for want of a C64 ROM
-> set, and three targets are not started. **Nothing here has been run on real
-> console hardware.**
+> QuickNES, Game Boy in gambatte, Mega Drive in PicoDrive and Genesis Plus GX,
+> and Master System in Genesis Plus GX. **The C64 ROMs are built but have never
+> been run**, for want of a C64 ROM set, and the Atari 2600 target is not
+> started. **Nothing here has been run on real console hardware** — indeed the
+> GBA ROMs cannot be, by design.
 
 Test ROMs for emulators, built from source, for people who care about the
 **video path** rather than about emulation accuracy.
