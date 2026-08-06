@@ -1,14 +1,14 @@
 # av-test-roms
 
 > **AI-assisted project.** This codebase was created with [Claude](https://claude.com/claude-code)
-> (Anthropic), directed and reviewed by a human author. Five of the seven
-> targets are verified in the sense that the ROMs were run in an emulator core
-> and the frames were looked at — GBA in mGBA, NES in fceumm/Nestopia/Mesen/
-> QuickNES, Game Boy in gambatte, Mega Drive in PicoDrive and Genesis Plus GX,
-> and Master System in Genesis Plus GX. **The C64 ROMs are built but have never
-> been run**, for want of a C64 ROM set, and the Atari 2600 target is not
-> started. **Nothing here has been run on real console hardware** — indeed the
-> GBA ROMs cannot be, by design.
+> (Anthropic), directed and reviewed by a human author. All seven targets are
+> built and six are verified in the sense that the ROMs were run in an emulator
+> core and the frames were looked at — GBA in mGBA, NES in fceumm/Nestopia/
+> Mesen/QuickNES, Game Boy in gambatte, Mega Drive in PicoDrive and Genesis Plus
+> GX, Master System in Genesis Plus GX, and Atari 2600 in Stella. **The C64 ROMs
+> are built and structurally checked but have never been run**, because every
+> C64 emulator needs a BIOS this repository will not ship. **Nothing here has
+> been run on real console hardware** — indeed the GBA ROMs cannot be, by design.
 
 Test ROMs for emulators, built from source, for people who care about the
 **video path** rather than about emulation accuracy.
@@ -26,8 +26,9 @@ cartridge-specific in them. They are ordinary ROMs and will run in anything.
 
 ## Status
 
-Seven targets are planned. **Five are built and verified**; the rest are not
-started, and this table is the honest state of it rather than a roadmap.
+All seven targets are built. **Six are verified in a real core**; the C64 is
+built and structurally checked but not run, because every C64 emulator needs a
+BIOS this repository will not ship. The table is the honest state of it.
 
 | Target | Toolchain | ROMs | Verified in |
 |---|---|---|---|
@@ -36,7 +37,7 @@ started, and this table is the honest state of it rather than a roadmap.
 | **Game Boy / GBC** | `rgbds` | 3 | gambatte ✅ |
 | **Mega Drive** | `m68k-elf-gcc` | 3 | PicoDrive, Genesis Plus GX ✅ |
 | **Master System** | `sdcc` | 3 | Genesis Plus GX ✅ |
-| Atari 2600 | `dasm` | — | not started |
+| **Atari 2600** | `dasm` | 3 | Stella ✅ |
 | **Commodore 64** | `cc65` | 3 | built only — needs a C64 ROM set ⚠️ |
 
 "Verified" means the ROM was run in that core and the resulting frames were

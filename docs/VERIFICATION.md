@@ -61,6 +61,7 @@ that never drew anything.
 | Game Boy (DMG) | gambatte, CGB flag cleared in a scratch copy | bars degrade to four shades as designed |
 | Mega Drive | PicoDrive, Genesis Plus GX | all three render; 39/39 ticker steps on every panel |
 | Master System | Genesis Plus GX | all three render; 39/39 ticker steps, 38/39 across a panel change |
+| Atari 2600 | Stella | all three render |
 | Commodore 64 | none — needs a C64 ROM set | built and structurally checked only |
 
 ## mGBA refuses the Game Boy ROMs

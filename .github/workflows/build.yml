@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install toolchains
-        run: brew install cc65 rgbds arm-none-eabi-gcc m68k-elf-gcc
+        run: brew install cc65 rgbds dasm sdcc arm-none-eabi-gcc m68k-elf-gcc
 
       - name: Show what is installed
         run: make toolchains
@@ -56,6 +56,22 @@ jobs:
             else
               echo "ok $f ($size bytes)"
             fi
+          done
+          for f in dist/sms/*.sms; do
+            size=$(stat -f%z "$f")
+            [ "$size" -eq 32768 ] && echo "ok $f ($size bytes)" || \
+              { echo "::error::$f is $size bytes, expected 32768"; fail=1; }
+          done
+          for f in dist/a2600/*.a26; do
+            size=$(stat -f%z "$f")
+            [ "$size" -eq 4096 ] && echo "ok $f ($size bytes)" || \
+              { echo "::error::$f is $size bytes, expected 4096"; fail=1; }
+          done
+          for f in dist/c64/*.prg; do
+            # A .prg must start with its load address, $0801.
+            head=$(dd if="$f" bs=1 count=2 2>/dev/null | xxd -p)
+            [ "$head" = "0108" ] && echo "ok $f (loads at \$0801)" || \
+              { echo "::error::$f starts $head, expected 0108"; fail=1; }
           done
           for f in dist/nes/*.nes; do
             size=$(stat -f%z "$f")

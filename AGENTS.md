@@ -89,6 +89,15 @@ coordinates when a 16x16 block cannot be satisfied. When it raises, the layout
 is wrong — do not widen the palettes to silence it without checking what the
 block actually contains.
 
+**The 2600 has no framebuffer and horizontal blank is 22.67 cycles.** Writes
+made there are not seen. A colour bar cannot be narrower than one store, which
+is fifteen pixels. Read `targets/a2600/README.md` before touching a kernel —
+every constant in it is a cycle count.
+
+**Forgetting COLUPF gives a black screen on the 2600**, because the reset loop
+zeroes every TIA register including the playfield colour. Indistinguishable
+from a kernel that never runs.
+
 ## Adding a target
 
 1. Read `docs/DESIGN.md`. The three programs are specified there; do not
