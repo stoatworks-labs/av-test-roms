@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install toolchains
-        run: brew install cc65 arm-none-eabi-gcc
+        run: brew install cc65 rgbds arm-none-eabi-gcc
 
       - name: Show what is installed
         run: make toolchains
@@ -35,6 +35,14 @@ jobs:
             size=$(stat -f%z "$f")
             if [ "$size" -lt 512 ] || [ "$size" -gt 65536 ]; then
               echo "::error::$f is $size bytes, expected 512..65536"; fail=1
+            else
+              echo "ok $f ($size bytes)"
+            fi
+          done
+          for f in dist/gb/*.gb; do
+            size=$(stat -f%z "$f")
+            if [ "$size" -ne 32768 ]; then
+              echo "::error::$f is $size bytes, expected 32768"; fail=1
             else
               echo "ok $f ($size bytes)"
             fi

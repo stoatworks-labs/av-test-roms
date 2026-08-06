@@ -5,7 +5,7 @@
 #   make toolchains what to install, and how
 #   make clean
 
-TARGETS_READY := gba nes
+TARGETS_READY := gba nes gb
 
 .PHONY: all clean toolchains $(TARGETS_READY)
 

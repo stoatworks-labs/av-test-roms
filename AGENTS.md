@@ -65,6 +65,13 @@ exists because an empty output section gets no LOAD segment, which leaves its
 load address in IWRAM and makes `objcopy -O binary` emit an 83 MB file. It is
 in its own `.data.guard` section because `--gc-sections` collects it otherwise.
 
+**Game Boy OAM writes outside vblank/hblank are silently dropped.** Sprites go
+through `ShadowOAM` and a DMA routine in HRAM. Without that, a frame's sprite
+updates overrun vblank and the later ones land or not depending on PPU mode —
+which presents as one specific sprite slot never appearing, and survives every
+check of tile, palette, address and generated code. If a sprite is missing on
+this target, suspect *when* it was written, not what.
+
 **NES text tiles are indexed by ASCII, and that range is a minefield.** Glyphs
 occupy tiles 0x20..0x5F so that drawing a string is copying its bytes. Any
 graphics tile placed in that range is silently overwritten when the font is

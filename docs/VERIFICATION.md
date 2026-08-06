@@ -36,7 +36,12 @@ On mGBA, after the checkerboard was moved to DMA:
 | CHECK | 39/39 |
 | EDGE | 39/39 |
 
-BARS is 34/35 because that window contains a panel change, which redraws the
+The same measurement on the Game Boy build, through gambatte: HATCH, BURST and
+CHECK all 39/39, BARS 37/39 — that window contains a panel change, which on
+this target switches the LCD off to upload a kilobyte and costs two frames
+rather than one.
+
+BARS is 34/35 on the GBA because that window contains a panel change, which redraws the
 whole screen and costs one frame. The ticker reporting it is the instrument
 working.
 
@@ -51,6 +56,14 @@ that never drew anything.
 |---|---|---|
 | GBA | mGBA 0.11-219 | all three ROMs render |
 | NES | QuickNES | all three ROMs render, output cropped to 240x224 |
+| Game Boy Color | gambatte | all three ROMs render in colour |
+| Game Boy (DMG) | gambatte, CGB flag cleared in a scratch copy | bars degrade to four shades as designed |
+
+## mGBA refuses the Game Boy ROMs
+
+Its GB core identifies a ROM by the Nintendo logo bitmap at `$0104`, which is
+deliberately zero here. Confirmed rather than assumed: `rgbfix -f l` on a copy
+makes mGBA accept the otherwise identical file. gambatte does not care.
 
 ## Three NES cores that could not be used, and why
 

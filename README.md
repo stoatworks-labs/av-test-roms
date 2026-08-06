@@ -16,14 +16,14 @@ cartridge-specific in them. They are ordinary ROMs and will run in anything.
 
 ## Status
 
-Seven targets are planned. **Two are built and verified**; the rest are not
+Seven targets are planned. **Three are built and verified**; the rest are not
 started, and this table is the honest state of it rather than a roadmap.
 
 | Target | Toolchain | ROMs | Verified in |
 |---|---|---|---|
 | **Game Boy Advance** | `arm-none-eabi-gcc` | 3 | mGBA 0.11 ✅ |
 | **NES** | `cc65` | 3 | QuickNES ✅ |
-| Game Boy / GBC | `rgbds` | — | not started |
+| **Game Boy / GBC** | `rgbds` | 3 | gambatte ✅ |
 | Mega Drive | `m68k-elf-gcc` | — | not started |
 | Master System / GG | `sdcc` | — | not started |
 | Atari 2600 | `dasm` | — | not started |
@@ -65,7 +65,7 @@ four edges, and asymmetric corner markers so a flipped output is obvious rather
 than merely plausible. The output is a number: "the path is eating 6 pixels off
 the left", not "it looks a bit off".
 
-## Two things the suite found while being written
+## Three things the suite found while being written
 
 Both are in the target READMEs, and both are the reason this exists.
 
@@ -80,6 +80,12 @@ It is DMA now, and holds 39/39 single-cell steps on every panel.
 precisely what `overscan` is for, and it showed up the first time the suite was
 pointed at a core.
 
+**One Game Boy binary can serve both machines.** Bar *i* uses the tile whose
+ink is index *i* mod 4 and CGB palette *i*, so a Game Boy Color shows eight
+colours and a DMG — where the attribute map does not exist — falls back to its
+four shades twice over, adjacent bars still distinguishable. No second code
+path, nothing drawn twice.
+
 ## Licensing, and what is deliberately missing
 
 MIT, and every byte is original. Two consequences worth stating plainly:
@@ -88,6 +94,10 @@ MIT, and every byte is original. Two consequences worth stating plainly:
   Nintendo logo bitmap in the cartridge header before it runs anything. That
   bitmap is Nintendo's artwork, so the field is zeroed. They run in any
   emulator that skips the check.
+- **mGBA will not load the Game Boy ROMs**, for the same reason: its GB core
+  identifies a ROM *by* that logo. gambatte and SameBoy load them fine, and
+  `rgbfix -f l` on your own copy makes mGBA accept it — your call, on your
+  machine, not something this repo ships.
 - **No cores are included**, and none will be. Cores have their own licences,
   several of them non-commercial. Get them the way you would for RetroArch.
 
