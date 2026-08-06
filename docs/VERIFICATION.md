@@ -58,6 +58,7 @@ that never drew anything.
 | NES | QuickNES | all three ROMs render, output cropped to 240x224 |
 | Game Boy Color | gambatte | all three ROMs render in colour |
 | Game Boy (DMG) | gambatte, CGB flag cleared in a scratch copy | bars degrade to four shades as designed |
+| Mega Drive | PicoDrive | all three ROMs render; 39/39 ticker steps on every panel |
 
 ## mGBA refuses the Game Boy ROMs
 
@@ -79,6 +80,10 @@ want a system directory at load time then fail, in three different ways:
 | **fceumm** | segfault (exit 139) while building the path for `nes.pal` |
 | **Nestopia** | `retro_load_game` returns false — needs `NstDatabase.xml` |
 | **Mesen** | `retro_load_game` returns false |
+
+**Genesis Plus GX** fails the same way on the Mega Drive build. Padding the ROM
+to a power of two fixed an *earlier* crash in the same function, so the two look
+identical from outside; PicoDrive loads the padded image without complaint.
 
 All three look identical to a malformed ROM from the outside, which is what
 made it worth checking the iNES header byte by byte before suspecting the
