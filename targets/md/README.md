@@ -8,8 +8,7 @@
 | `inputtest.bin` | 32768 |
 | `overscan.bin` | 32768 |
 
-Verified against **PicoDrive**. Genesis Plus GX could not be used — see below;
-it is not the ROM.
+Verified against **PicoDrive** and **Genesis Plus GX**.
 
 ## The roomiest target in the suite
 
@@ -49,11 +48,13 @@ Genesis Plus GX segfaults inside `retro_load_game` on an image that is not
 padded, before it prints anything at all — which is indistinguishable from a
 bad header until you pad it and the crash moves.
 
-## Genesis Plus GX still cannot load these
+## Genesis Plus GX crashed twice, for two different reasons
 
-Padding fixed one crash; it segfaults again on the null system directory
-`cartest` hands out, the same way fceumm does. PicoDrive does not care and
-loads all three. See [docs/VERIFICATION.md](../../docs/VERIFICATION.md).
+Padding fixed the first crash. It then segfaulted again on a frontend bug —
+`GET_VARIABLE` answered true with a null value, which the core dereferenced —
+and both crashes are in `retro_load_game`, so fixing the first only moved it.
+PicoDrive never cared about either. Fixed in cartridge#1; see
+[docs/VERIFICATION.md](../../docs/VERIFICATION.md).
 
 ## Sprites
 

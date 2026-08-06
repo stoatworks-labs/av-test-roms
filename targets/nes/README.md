@@ -8,10 +8,13 @@
 | `inputtest.nes` | 40976 |
 | `overscan.nes` | 40976 |
 
-Verified against **QuickNES**. Three other NES cores could not load it for
-reasons that turned out to be the harness rather than the ROM — see
-[docs/VERIFICATION.md](../../docs/VERIFICATION.md) before assuming a header
-fault.
+Verified against **fceumm, Nestopia, Mesen and QuickNES**. The first three
+return 256x240; QuickNES crops to 240x224, which swallows the title row — see
+[docs/VERIFICATION.md](../../docs/VERIFICATION.md).
+
+Three of those four could not load anything at all until a frontend bug was
+fixed in cartridge#1. The iNES header was correct the whole time; check the
+harness before assuming a header fault.
 
 ## The layouts are generated, not written
 

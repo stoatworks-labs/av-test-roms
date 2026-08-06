@@ -22,9 +22,9 @@ started, and this table is the honest state of it rather than a roadmap.
 | Target | Toolchain | ROMs | Verified in |
 |---|---|---|---|
 | **Game Boy Advance** | `arm-none-eabi-gcc` | 3 | mGBA 0.11 ✅ |
-| **NES** | `cc65` | 3 | QuickNES ✅ |
+| **NES** | `cc65` | 3 | fceumm, Nestopia, Mesen, QuickNES ✅ |
 | **Game Boy / GBC** | `rgbds` | 3 | gambatte ✅ |
-| **Mega Drive** | `m68k-elf-gcc` | 3 | PicoDrive ✅ |
+| **Mega Drive** | `m68k-elf-gcc` | 3 | PicoDrive, Genesis Plus GX ✅ |
 | Master System / GG | `sdcc` | — | not started |
 | Atari 2600 | `dasm` | — | not started |
 | Commodore 64 | `cc65` | — | not started |
@@ -75,10 +75,11 @@ third of frame rate, so the ticker repeated cells instead of advancing one per
 frame. An instrument whose frame counter is wrong is worse than no instrument.
 It is DMA now, and holds 39/39 single-cell steps on every panel.
 
-**QuickNES crops.** Running the NES build through it returns 240x224, not
-256x240 — eight pixels off each edge, which swallows the title row. That is
-precisely what `overscan` is for, and it showed up the first time the suite was
-pointed at a core.
+**Cores disagree about how much of the NES picture there is.** fceumm, Nestopia
+and Mesen all return 256x240; QuickNES returns 240x224, cropping eight pixels
+off each edge and swallowing the title row. Three agree and one does not, and
+`overscan` puts a number on the difference. That is precisely the question this
+suite exists to answer.
 
 **One Game Boy binary can serve both machines.** Bar *i* uses the tile whose
 ink is index *i* mod 4 and CGB palette *i*, so a Game Boy Color shows eight

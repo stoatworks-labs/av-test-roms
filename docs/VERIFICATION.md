@@ -55,10 +55,11 @@ that never drew anything.
 | Target | Core | Result |
 |---|---|---|
 | GBA | mGBA 0.11-219 | all three ROMs render |
-| NES | QuickNES | all three ROMs render, output cropped to 240x224 |
+| NES | fceumm, Nestopia, Mesen | all three ROMs render at 256x240 |
+| NES | QuickNES | all three render, cropped to 240x224 |
 | Game Boy Color | gambatte | all three ROMs render in colour |
 | Game Boy (DMG) | gambatte, CGB flag cleared in a scratch copy | bars degrade to four shades as designed |
-| Mega Drive | PicoDrive | all three ROMs render; 39/39 ticker steps on every panel |
+| Mega Drive | PicoDrive, Genesis Plus GX | all three render; 39/39 ticker steps on every panel |
 
 ## mGBA refuses the Game Boy ROMs
 
@@ -66,26 +67,42 @@ Its GB core identifies a ROM by the Nintendo logo bitmap at `$0104`, which is
 deliberately zero here. Confirmed rather than assumed: `rgbfix -f l` on a copy
 makes mGBA accept the otherwise identical file. gambatte does not care.
 
-## Three NES cores that could not be used, and why
+## Four cores that could not load anything, and why
 
-Not a fault in the ROMs — worth recording so the next person does not repeat
-the bisection.
-
-`cartest` never calls `Core::SetSystemDirectory`, so
-`RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY` hands back a null pointer. Cores that
-want a system directory at load time then fail, in three different ways:
+This one was the frontend, not the ROMs, and it cost a full pass through an
+iNES header byte by byte before that became clear. Fixed in
+[cartridge#1](https://github.com/stoatworks-labs/cartridge/pull/1); the
+verification below used a `cartest` built from that branch.
 
 | Core | Symptom |
 |---|---|
-| **fceumm** | segfault (exit 139) while building the path for `nes.pal` |
-| **Nestopia** | `retro_load_game` returns false — needs `NstDatabase.xml` |
+| **fceumm** | segfault (exit 139) inside `retro_load_game` |
+| **Genesis Plus GX** | segfault (exit 139) inside `retro_load_game` |
+| **Nestopia** | `retro_load_game` returns false |
 | **Mesen** | `retro_load_game` returns false |
 
-**Genesis Plus GX** fails the same way on the Mega Drive build. Padding the ROM
-to a power of two fixed an *earlier* crash in the same function, so the two look
-identical from outside; PicoDrive loads the padded image without complaint.
+Two causes, and the second is the interesting one:
 
-All three look identical to a malformed ROM from the outside, which is what
-made it worth checking the iNES header byte by byte before suspecting the
-harness. QuickNES needs no system files and loads the same ROM without
-complaint.
+1. Nothing ever called `Core::SetSystemDirectory`, so cores wanting a BIOS or
+   database file got a null pointer. `cartest` now takes `--system`.
+2. `GET_VARIABLE` answered **true** with `value = nullptr`. Many cores are
+   written as `if( environ_cb( GET_VARIABLE, &var ) ) strcmp( var.value, ... )`
+   and dereference the null the instant the call says true. Answering false
+   makes them fall back to their own defaults.
+
+All four failures present identically from the outside: a bad ROM.
+
+## The crop table, which is the whole point
+
+With every core loading, the same NES ROM through four of them:
+
+| Core | Output |
+|---|---|
+| fceumm | 256x240 |
+| Nestopia | 256x240 |
+| Mesen | 256x240 |
+| **QuickNES** | **240x224** |
+
+QuickNES crops eight pixels off each edge and the top and bottom, which
+swallows the title row. Three cores agree and one does not — and `overscan`
+puts a number on exactly how much.

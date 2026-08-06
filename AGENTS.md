@@ -56,9 +56,12 @@ written as each target lands.
 so white arrives as (255, 251, 255). An equality test against pure white finds
 nothing and looks exactly like a ROM that drew nothing.
 
-**A NES core that rejects the ROM is probably the harness.** `cartest` does not
-set a system directory, so fceumm segfaults and Nestopia and Mesen refuse to
-load. The iNES header was correct all along. QuickNES needs no system files.
+**A core that rejects the ROM may well be the harness.** fceumm, Nestopia,
+Mesen and Genesis Plus GX all failed to load anything, in three different ways,
+for two frontend reasons: no system directory was ever set, and `GET_VARIABLE`
+answered true with a null value that sloppy cores dereference. Fixed in
+cartridge#1. The iNES and Mega Drive headers were correct the whole time —
+check the harness before the third byte of a header.
 
 **The GBA `.data` section must stay non-empty.** `__data_guard` in `crt0.s`
 exists because an empty output section gets no LOAD segment, which leaves its
