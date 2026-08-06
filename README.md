@@ -1,5 +1,14 @@
 # av-test-roms
 
+> **AI-assisted project.** This codebase was created with [Claude](https://claude.com/claude-code)
+> (Anthropic), directed and reviewed by a human author. Four of the seven
+> targets are verified in the sense that the ROMs were run in an emulator core
+> and the frames were looked at — GBA in mGBA, NES in fceumm/Nestopia/Mesen/
+> QuickNES, Game Boy in gambatte, and Mega Drive in PicoDrive and Genesis Plus
+> GX. **The C64 ROMs are built but have never been run**, for want of a C64 ROM
+> set, and three targets are not started. **Nothing here has been run on real
+> console hardware.**
+
 Test ROMs for emulators, built from source, for people who care about the
 **video path** rather than about emulation accuracy.
 
@@ -101,7 +110,3 @@ MIT, and every byte is original. Two consequences worth stating plainly:
   machine, not something this repo ships.
 - **No cores are included**, and none will be. Cores have their own licences,
   several of them non-commercial. Get them the way you would for RetroArch.
-
----
-
-*Parts of this project were developed with AI assistance.*
