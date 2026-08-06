@@ -25,7 +25,7 @@ cartridge-specific in them. They are ordinary ROMs and will run in anything.
 
 ## Status
 
-Seven targets are planned. **Four are built and verified**; the rest are not
+Seven targets are planned. **Five are built and verified**; the rest are not
 started, and this table is the honest state of it rather than a roadmap.
 
 | Target | Toolchain | ROMs | Verified in |
@@ -34,7 +34,7 @@ started, and this table is the honest state of it rather than a roadmap.
 | **NES** | `cc65` | 3 | fceumm, Nestopia, Mesen, QuickNES ✅ |
 | **Game Boy / GBC** | `rgbds` | 3 | gambatte ✅ |
 | **Mega Drive** | `m68k-elf-gcc` | 3 | PicoDrive, Genesis Plus GX ✅ |
-| Master System / GG | `sdcc` | — | not started |
+| **Master System** | `sdcc` | 3 | Genesis Plus GX ✅ |
 | Atari 2600 | `dasm` | — | not started |
 | **Commodore 64** | `cc65` | 3 | built only — needs a C64 ROM set ⚠️ |
 
