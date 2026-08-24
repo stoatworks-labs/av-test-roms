@@ -107,3 +107,10 @@ from a kernel that never runs.
 3. Verify in a real core and put the evidence in `docs/VERIFICATION.md`. A
    target that only assembles does not go in the README as verified — the
    status table is meant to be trustworthy.
+
+## Notes
+
+`docs/NOTES.md` carries this repo's working notes — current status, decisions
+already made, and the traps that have actually bitten. Read it before changing
+anything non-obvious. Cross-cutting fleet knowledge lives in
+[fleet-notes](https://github.com/stoatworks-labs/fleet-notes).
