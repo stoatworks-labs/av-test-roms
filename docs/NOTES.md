@@ -7,7 +7,7 @@ person and dated by when each thing was learned — that date is usually the use
 Cross-cutting notes that are not specific to this repo live in
 [fleet-notes](https://github.com/stoatworks-labs/fleet-notes).
 
-*av-test-roms — emulator test ROM suite (testcard/inputtest/overscan), 2 of 7 targets built, NOT yet pushed*
+*av-test-roms — emulator test ROM suite (testcard/inputtest/overscan), all 7 targets built, public*
 
 `~/Projects/av-test-roms` — three programs (`testcard` with countable motion,
 `inputtest` mapping tester, `overscan`) built natively per console. MIT, all
