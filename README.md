@@ -11,6 +11,8 @@
 Test ROMs for emulators, built from source, for people who care about the
 **video path** rather than about emulation accuracy.
 
+The [project page](https://stoatworks-labs.com/software/av-test-roms/) has the [user guide](https://stoatworks-labs.com/software/av-test-roms/guide/).
+
 Three programs (a moving test card, a controller mapping tester and an overscan
 display), built for as many consoles as have a toolchain in Homebrew. Everything
 here is original work under MIT: no console BIOS, no commercial ROM, and nothing
